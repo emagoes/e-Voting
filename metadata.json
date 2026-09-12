@@ -1,0 +1,6 @@
+{
+  "name": "eOSIS Pemilihan",
+  "description": "Aplikasi Web Pemilihan OSIS modern, aman, dan responsif menggunakan Vue.js 3, Bootstrap 5, dan Supabase.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

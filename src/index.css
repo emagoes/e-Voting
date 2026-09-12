@@ -1,0 +1,128 @@
+/* Custom Styling for eOSIS with Bootstrap 5 */
+@import "bootstrap/dist/css/bootstrap.min.css";
+@import "bootstrap-icons/font/bootstrap-icons.css";
+
+:root {
+  --eosis-primary: #1e40af;
+  --eosis-primary-dark: #1e3a8a;
+  --eosis-accent: #3b82f6;
+  --eosis-bg: #f8fafc;
+  --eosis-card-bg: #ffffff;
+  --eosis-text: #0f172a;
+  --eosis-text-muted: #64748b;
+  --eosis-border: #e2e8f0;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  background-color: var(--eosis-bg);
+  color: var(--eosis-text);
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Modern Card Stylings */
+.card-eosis {
+  background: var(--eosis-card-bg);
+  border: 1px solid var(--eosis-border);
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease-in-out;
+}
+
+.card-eosis:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Sidebar Styling */
+.admin-sidebar {
+  width: 260px;
+  background: #0f172a;
+  color: #f8fafc;
+  min-height: 100vh;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.admin-sidebar .nav-link {
+  color: #94a3b8;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  transition: all 0.2s ease;
+  margin-bottom: 0.25rem;
+}
+
+.admin-sidebar .nav-link:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.admin-sidebar .nav-link.active {
+  color: #ffffff;
+  background: #2563eb;
+  font-weight: 600;
+}
+
+/* Candidate Card in Voting Page */
+.candidate-card {
+  border: 2px solid transparent;
+  border-radius: 16px;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+}
+
+.candidate-card:hover {
+  transform: translateY(-4px);
+  border-color: #3b82f6;
+  box-shadow: 0 12px 24px -4px rgba(59, 130, 246, 0.15);
+}
+
+.candidate-badge-number {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: #2563eb;
+  color: white;
+  font-weight: 800;
+  font-size: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 8px rgba(37, 99, 235, 0.3);
+  z-index: 2;
+}
+
+/* Button & Badge Tweaks */
+.btn {
+  font-weight: 600;
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  transition: all 0.15s ease-in-out;
+}
+
+.badge {
+  font-weight: 600;
+  padding: 0.35em 0.65em;
+  border-radius: 6px;
+}
+
+/* Toast/Alert Animations */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
