@@ -221,7 +221,7 @@ const settings = ref<AppSettings>({
   id: 1,
   school_name: '',
   school_logo: '',
-  election_period: '2025/2026',
+  election_period: '2026/2027',
   is_active: true,
   welcome_message: '',
 });

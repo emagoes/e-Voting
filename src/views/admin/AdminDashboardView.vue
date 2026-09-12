@@ -37,7 +37,7 @@
             <div>
               <span class="text-muted small fw-semibold text-uppercase">Total Kelas</span>
               <h3 class="fw-bold text-dark my-1">{{ stats.totalClasses }}</h3>
-              <small class="text-secondary"><i class="bi bi-diagram-3 me-1"></i>Tingkat X, XI, dan XII</small>
+              <small class="text-secondary"><i class="bi bi-diagram-3 me-1"></i>Tingkat Kelas 7, 8, dan 9</small>
             </div>
             <div class="p-3 bg-info-subtle text-info-emphasis rounded-3">
               <i class="bi bi-building fs-3"></i>

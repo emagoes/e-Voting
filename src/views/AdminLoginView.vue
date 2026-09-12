@@ -5,7 +5,7 @@
         <div class="d-inline-flex align-items-center justify-content-center bg-dark text-white p-2 rounded-circle shadow-sm mb-3" style="width: 72px; height: 72px;">
           <i class="bi bi-shield-lock-fill fs-2 text-primary"></i>
         </div>
-        <h4 class="fw-bold text-dark mb-1">Panel Administrator eOSIS</h4>
+        <h4 class="fw-bold text-dark mb-1">Panel Administrator e-Voting</h4>
         <p class="text-muted small">Kelola data kelas, siswa, kandidat, dan perolehan suara.</p>
       </div>
 

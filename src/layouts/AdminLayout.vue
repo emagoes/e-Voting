@@ -2,12 +2,13 @@
   <div class="d-flex min-vh-100 bg-light">
     <!-- Desktop Sidebar -->
     <aside class="admin-sidebar d-none d-lg-flex p-3">
+      <!-- App Brand Header -->
       <div class="d-flex align-items-center gap-2 mb-4 px-2">
-        <div class="bg-primary text-white rounded p-2 d-flex align-items-center justify-content-center" style="width: 38px; height: 38px;">
+        <div class="bg-primary text-white rounded-3 p-2 d-flex align-items-center justify-content-center shadow-sm" style="width: 38px; height: 38px;">
           <i class="bi bi-box-seam-fill fs-5"></i>
         </div>
         <div>
-          <h6 class="mb-0 fw-bold text-white tracking-wide">eOSIS</h6>
+          <h6 class="mb-0 fw-bold text-white tracking-wide">e-Voting</h6>
           <small class="text-secondary" style="font-size: 0.75rem;">Panel Administrator</small>
         </div>
       </div>
@@ -85,7 +86,7 @@
       <div class="offcanvas offcanvas-start bg-dark text-white" tabindex="-1" id="adminOffcanvas">
         <div class="offcanvas-header border-bottom border-secondary">
           <h5 class="offcanvas-title fw-bold text-white d-flex align-items-center gap-2">
-            <i class="bi bi-box-seam-fill text-primary"></i> eOSIS Menu
+            <i class="bi bi-box-seam-fill text-primary"></i> e-Voting Menu
           </h5>
           <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
@@ -137,9 +138,9 @@ const router = useRouter();
 const adminUsername = ref(getAdminUsername());
 const settings = ref<AppSettings>({
   id: 1,
-  school_name: 'eOSIS School',
+  school_name: 'SMP Negeri 1 Sumobito',
   school_logo: '',
-  election_period: '2025/2026',
+  election_period: '2026/2027',
   is_active: true,
   welcome_message: '',
 });
@@ -147,6 +148,7 @@ const settings = ref<AppSettings>({
 onMounted(async () => {
   try {
     settings.value = await getSettings();
+    adminUsername.value = getAdminUsername();
   } catch (e) {
     console.error(e);
   }

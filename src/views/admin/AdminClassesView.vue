@@ -24,16 +24,16 @@
               v-model="searchQuery"
               type="text"
               class="form-control border-start-0"
-              placeholder="Cari nama kelas (misal: X MIPA 1, XI IPS)..."
+              placeholder="Cari nama kelas (misal: Kelas 7A, Kelas 7, Kelas 8, Kelas 9)..."
             />
           </div>
         </div>
         <div class="col-12 col-md-4">
           <select v-model="filterGrade" class="form-select">
-            <option value="">Semua Tingkatan (X, XI, XII)</option>
-            <option value="X">Tingkat X</option>
-            <option value="XI">Tingkat XI</option>
-            <option value="XII">Tingkat XII</option>
+            <option value="">Semua Tingkatan (7, 8, 9)</option>
+            <option value="7">Tingkat Kelas 7</option>
+            <option value="8">Tingkat Kelas 8</option>
+            <option value="9">Tingkat Kelas 9</option>
           </select>
         </div>
         <div class="col-12 col-md-2 text-md-end">
@@ -123,9 +123,9 @@
               <div class="mb-3">
                 <label class="form-label small fw-bold text-secondary">Tingkat Kelas</label>
                 <select v-model="formData.grade" class="form-select" required>
-                  <option value="X">Kelas X (Sepuluh)</option>
-                  <option value="XI">Kelas XI (Sebelas)</option>
-                  <option value="XII">Kelas XII (Dua Belas)</option>
+                  <option value="7">Kelas 7 (Tujuh)</option>
+                  <option value="8">Kelas 8 (Delapan)</option>
+                  <option value="9">Kelas 9 (Sembilan)</option>
                 </select>
               </div>
 
@@ -135,7 +135,7 @@
                   v-model="formData.name"
                   type="text"
                   class="form-control"
-                  placeholder="Contoh: X MIPA 1, XI IPS 2, XII BAHASA"
+                  placeholder="Contoh: 7A, 7B, 8C, 9D"
                   required
                 />
               </div>
@@ -218,7 +218,7 @@ function openModal(cls?: ClassItem) {
     editingId.value = null;
     formData.value = {
       name: '',
-      grade: 'X',
+      grade: '7',
     };
   }
   showModal.value = true;

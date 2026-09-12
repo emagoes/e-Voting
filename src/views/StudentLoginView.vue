@@ -4,14 +4,13 @@
     <div class="w-100" style="max-width: 460px;">
       <!-- Header / Logo -->
       <div class="text-center mb-4">
-        <div class="d-inline-flex align-items-center justify-content-center bg-white p-2 rounded-circle shadow-sm mb-3 border" style="width: 80px; height: 80px;">
-          <img v-if="settings.school_logo" :src="settings.school_logo" alt="Logo Sekolah" class="rounded-circle object-fit-cover w-100 h-100" />
-          <i v-else class="bi bi-mortarboard-fill text-primary fs-1"></i>
+        <div class="d-inline-flex align-items-center justify-content-center bg-white p-2 rounded-circle shadow-sm mb-3 border" style="width: 84px; height: 84px;">
+          <img :src="displayLogo" alt="Logo Sekolah" class="rounded-circle object-fit-cover w-100 h-100" />
         </div>
-        <h4 class="fw-bold text-dark mb-1">{{ settings.school_name }}</h4>
+        <h4 class="fw-bold text-dark mb-1 tracking-tight">{{ settings.school_name || 'SMP Negeri 1 Sumobito' }}</h4>
         <div class="d-flex align-items-center justify-content-center gap-2">
-          <span class="badge bg-primary text-white">eOSIS</span>
-          <span class="text-muted small">Tahun Ajaran {{ settings.election_period }}</span>
+          <span class="badge bg-primary text-white px-2.5 py-1">e-Voting</span>
+          <span class="text-muted small fw-medium">Tahun Ajaran {{ settings.election_period }}</span>
         </div>
       </div>
 
@@ -116,11 +115,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { studentLogin, getSettings } from '../services/db';
 import { setStudentSession } from '../services/auth';
 import type { AppSettings } from '../types';
+import schoolLogoImage from '../assets/images/regenerated_image_1789224215518.png';
 
 const router = useRouter();
 const nisn = ref('');
@@ -130,11 +130,18 @@ const isLoading = ref(false);
 
 const settings = ref<AppSettings>({
   id: 1,
-  school_name: 'eOSIS - Sistem Pemilihan OSIS',
-  school_logo: '',
-  election_period: '2025/2026',
+  school_name: 'SMP Negeri 1 Sumobito',
+  school_logo: schoolLogoImage,
+  election_period: '2026/2027',
   is_active: true,
   welcome_message: '',
+});
+
+const displayLogo = computed(() => {
+  if (settings.value.school_logo && !settings.value.school_logo.includes('unsplash.com')) {
+    return settings.value.school_logo;
+  }
+  return schoolLogoImage;
 });
 
 onMounted(async () => {

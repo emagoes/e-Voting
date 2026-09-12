@@ -9,24 +9,27 @@ import type {
   VotingStats,
 } from '../types';
 
+import defaultSchoolLogo from '../assets/images/regenerated_image_1789224215518.png';
+
 // Initial Mock / Seed Data
 const DEFAULT_SETTINGS: AppSettings = {
   id: 1,
-  school_name: 'SMA Negeri 1 Harapan Bangsa',
-  school_logo: 'https://images.unsplash.com/photo-1546410531-bb4caa6b424d?w=200&auto=format&fit=crop&q=60',
-  election_period: '2025/2026',
+  school_name: 'SMP Negeri 1 Sumobito',
+  school_logo: defaultSchoolLogo,
+  election_period: '2026/2027',
   is_active: true,
   welcome_message: 'Selamat datang di Pemilihan Ketua & Wakil Ketua OSIS. Gunakan hak suara Anda secara jujur, mandiri, dan berintegritas.',
   updated_at: new Date().toISOString(),
 };
 
 const DEFAULT_CLASSES: ClassItem[] = [
-  { id: 'c1', name: 'X MIPA 1', grade: 'X' },
-  { id: 'c2', name: 'X MIPA 2', grade: 'X' },
-  { id: 'c3', name: 'XI IPS 1', grade: 'XI' },
-  { id: 'c4', name: 'XI MIPA 1', grade: 'XI' },
-  { id: 'c5', name: 'XII MIPA 1', grade: 'XII' },
-  { id: 'c6', name: 'XII IPS 2', grade: 'XII' },
+  { id: 'c1', name: '7A', grade: '7' },
+  { id: 'c2', name: '7B', grade: '7' },
+  { id: 'c3', name: '7C', grade: '7' },
+  { id: 'c4', name: '8A', grade: '8' },
+  { id: 'c5', name: '8B', grade: '8' },
+  { id: 'c6', name: '9A', grade: '9' },
+  { id: 'c7', name: '9B', grade: '9' },
 ];
 
 const DEFAULT_CANDIDATES: CandidateItem[] = [
@@ -103,8 +106,47 @@ function setLocal<T>(key: string, val: T): void {
 
 // Ensure initial seed
 export async function initializeDatabase() {
-  getLocal('settings', DEFAULT_SETTINGS);
-  getLocal('classes', DEFAULT_CLASSES);
+  const currentSettings = getLocal('settings', DEFAULT_SETTINGS);
+  let settingsChanged = false;
+  if (!currentSettings.school_logo || currentSettings.school_logo.includes('unsplash.com')) {
+    currentSettings.school_logo = defaultSchoolLogo;
+    settingsChanged = true;
+  }
+  if (!currentSettings.school_name || currentSettings.school_name === 'SMA Negeri 1 Harapan Bangsa' || currentSettings.school_name === 'eOSIS - Sistem Pemilihan OSIS') {
+    currentSettings.school_name = 'SMP Negeri 1 Sumobito';
+    settingsChanged = true;
+  }
+  if (!currentSettings.election_period || currentSettings.election_period === '2025/2026') {
+    currentSettings.election_period = '2026/2027';
+    settingsChanged = true;
+  }
+  if (settingsChanged) {
+    setLocal('settings', currentSettings);
+  }
+
+  // Auto-migrate or initialize classes for SMP (Kelas 7, 8, 9)
+  const existingClasses = getLocal<ClassItem[]>('classes', DEFAULT_CLASSES);
+  const hasHighSchoolClasses = existingClasses.some(c => c.grade === 'X' || c.grade === 'XI' || c.grade === 'XII' || c.name.includes('MIPA') || c.name.includes('IPS'));
+  if (hasHighSchoolClasses) {
+    // Map high school grades/classes to Junior High (SMP) Kelas 7, 8, 9
+    const updatedClasses = existingClasses.map(c => {
+      if (c.grade === 'X' || c.name.includes('X MIPA 1') || c.id === 'c1') {
+        const newName = c.name.includes('2') ? '7B' : '7A';
+        return { ...c, name: newName, grade: '7' };
+      } else if (c.grade === 'XI' || c.name.includes('XI') || c.id === 'c3' || c.id === 'c4') {
+        const newName = c.name.includes('MIPA') || c.id === 'c4' ? '8B' : '8A';
+        return { ...c, name: newName, grade: '8' };
+      } else if (c.grade === 'XII' || c.name.includes('XII') || c.id === 'c5' || c.id === 'c6') {
+        const newName = c.name.includes('IPS') || c.id === 'c6' ? '9B' : '9A';
+        return { ...c, name: newName, grade: '9' };
+      }
+      return c;
+    });
+    setLocal('classes', updatedClasses);
+  } else {
+    getLocal('classes', DEFAULT_CLASSES);
+  }
+
   getLocal('candidates', DEFAULT_CANDIDATES);
   getLocal('students', DEFAULT_STUDENTS);
   getLocal('votes', DEFAULT_VOTES);
@@ -703,4 +745,16 @@ export function getAdminUsername(): string {
     { username: 'admin', full_name: 'Administrator OSIS', password_hash: '' }
   );
   return storedCreds.username || 'admin';
+}
+
+export function getAdminProfile(): { username: string; full_name: string; role: string } {
+  const storedCreds = getLocal<{ username: string; full_name: string; role?: string; password_hash: string }>(
+    'admin_credentials',
+    { username: 'admin', full_name: 'Administrator OSIS', password_hash: '' }
+  );
+  return {
+    username: storedCreds.username || 'admin',
+    full_name: storedCreds.full_name || 'Administrator',
+    role: storedCreds.role || 'Super Admin',
+  };
 }
